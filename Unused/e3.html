@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>  
+         @font-face {
+            font-family: 'kanit';
+            src: url('./Kanit/Kanit-Regular.ttf');
+        }      
+        body {
+            font-family: 'kanit';
+        }
+        #register {
+            font-size: 24;            
+            color: blue;
+            font-weight: 800;
+            padding: 10px;
+            margin: 10px;
+            background-color: yellow;
+            border: 1px solid black;
+        }
+        .header-form {
+            display: block;
+        }
+        .gender{
+            display: flex;
+       }/*left right top bottom*/
+       .relative {
+            position: relative;
+            left: 20px;
+       }
+        .absolute {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .fixed {
+            position: fixed;
+            top: 0;
+            right: 0;
+        }
+        .sticky {
+            position: sticky;
+            top: 50px;
+        }
+        .container {
+            height: 1000px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <div class="static">Static</div>
+        <div class="relative">Relative</div>
+        <div class="absolute">Absolute</div>
+        <div class="fixed">fixed</div>
+        <div class="Sticky">Sticky</div>
+    </div>
+
+    <div id="register">Register Form</div>
+    <span class="header-form">ชื่อ</span>
+    <input class="form" type="text">
+    <span class="header-form">นามสกุล</span>
+    <input class="form" type="text"><br>
+    อายุ<input class="form" type="number" min="0" max="150">
+    <div class="gender">
+        เพศ
+        <div>
+            <input name= "gender" type="radio">ชาย
+        </div>
+        <div>
+            <input name= "gender" type="radio">หญิง
+        </div>
+        <div>
+            <input name= "gender" type="radio">อื่นๆ
+        </div>
+    </div>
+    <div>
+        สิ่งที่สนใจ
+        <div>
+            <input name= "interest" type="checkbox">เรียน
+        </div>
+        <div>
+            <input name= "interest" type="checkbox">เล่นเกม
+        </div>
+        <div>
+            <input name= "interest" type="checkbox">อ่านหนังสือ
+        </div>
+    </div>
+    <div>
+        คำอธิบายตัวเอง <br>
+        <textarea></textarea>
+    </div>
+    <button>ส่งข้อมูล</button>
+</body>
+</html>
