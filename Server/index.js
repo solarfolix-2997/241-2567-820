@@ -1,28 +1,62 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mysql = require('mysql2/promise');
 const app = express();
 
 app.use(bodyParser.json());
 const port = 8000;
 
 let users = []
-let counter = 1;
+// let counter = 1;  [ -- NO LONGER USED -- ]
+let conn = null
 
-//path = / Get / Users
-app.get('/users', (req,res) => {
-    res.json(users);
+ const initMySQL = async () => {
+    conn = await mysql.createConnection({
+        host:'localhost',
+        user:     'root',  
+        password: 'root',
+        database: 'webdb',
+        port: 8830
+    })
+ }
+
+ app.get('/testdb-new', async (req, res) => {
+    try{     
+        const results = await conn.query('SELECT * FROM users')
+         res.json(results[0])    
+    } catch(error){     
+        console.log('Error fetching users:', error.message)
+        res.status(500).json({error: 'Error fetching users'})
+    }
+ })
+ 
+// Path = / GET / Users
+app.get('/users', async (req,res) => {
+ // res.json(users); [ -- NO LONGER USED -- ]
+    const result = await conn.query('SELECT * FROM users')
+    res.json(result[0])
 })
 
 // path = POST / User
-app.post('/user', (req,res) => {
+app.post('/user', async (req,res) => {
     let user = req.body;
+    const results = await conn.query('INSERT INTO users SET ?', user)
+    console.log('results', results)
+    res.json({
+        message: 'User Created',
+        data: results
+    });
+
+/*  
+  [ -- NO LONGER USED -- ]
     user.id = counter
     counter += 1
     users.push(user);
     res.json({
         message: 'User added successfully',
         user: user
-    })
+    }) 
+*/       
 })
 
 // path = PUT / user/:id
@@ -56,7 +90,7 @@ app.put('/user/:id', (req,res) => {
     GET /users/:id = get user by id
     PUT /users/:id = get user by id
     */
-})
+ })
 
 // Path = DELETE / user/:id
 app.delete('/user/:id', (req,res) => {
@@ -72,6 +106,7 @@ app.delete('/user/:id', (req,res) => {
     });
 });
 
-app.listen(port, (req,res) => {
+app.listen(port, async () => {
+    await initMySQL();
     console.log(`Server is running on port`+ port);
 });
