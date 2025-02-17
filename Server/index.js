@@ -46,17 +46,6 @@ app.post('/user', async (req,res) => {
         message: 'User Created',
         data: results
     });
-
-/*  
-  [ -- NO LONGER USED -- ]
-    user.id = counter
-    counter += 1
-    users.push(user);
-    res.json({
-        message: 'User added successfully',
-        user: user
-    }) 
-*/       
 })
 
 // path = PUT / user/:id
