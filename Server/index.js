@@ -70,19 +70,6 @@ app.get('/users', async (req,res) => {
     res.json(result[0])
 })
 
-/*
-// path = POST / User
-app.post('/user', async (req,res) => {
-    let user = req.body;
-    const results = await conn.query('INSERT INTO users SET ?', user)
-    console.log('results', results)
-    res.json({
-        message: 'User Created',
-        data: results
-    });
-})
-*/
-
 // path = POST / User
 app.post('/users', async (req,res) => {
     try{
@@ -91,9 +78,9 @@ app.post('/users', async (req,res) => {
     if(errors.length > 0){
         throw{
             message: 'กรุณากรอกข้อมูลให้ครบถ้วน',
-            errors: errors
-        }
+            errors: errors}
     }
+
     const result = await conn.query('INSERT INTO users SET ?', user)
     res.json({
         message: 'User created successfully',
@@ -105,10 +92,10 @@ app.post('/users', async (req,res) => {
     } catch (error){
         const errorMessage = error.message || 'Something went wrong'
         const errors = error.errors || []
-        console.error('errorMessage', errorMessage)
+        console.error('errorMessage', error.Message)
         res.status(500).json({
             message: errorMessage,
-            errorMessage: errors
+            error: errors
         })
     }
 })
