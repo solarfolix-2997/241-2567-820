@@ -11,13 +11,12 @@ const port = 8000;
 let users = []
 let conn = null
 
-// sent user info in update to where it belongs
 /* 
-GET / USERS = get all users
-POST / USERS = create new user in data
-GET /users/:id = get user by id
-PUT /users/:id = get user by id
-DELETE / user/:id
+GET    /users สำหรับ get user ทั้งหมด
+POST   /users = สำหรับ new user ใหม่บันทึกลงเข้าไป
+GET    /users/:id = สำหรับ get user รายคนที่ต้องการดู
+PUT    /users/:id = สำหรับ update user รายคนที่ต้องการบันทึกลงเข้าไป
+DELETE / user/:id = สำหรับ delete user รายคนที่ต้องการลบออกไป
 */
 
 const initMySQL = async () => {
@@ -53,49 +52,35 @@ const validateData = (userData) => {
     return errors
 }
 
-app.get('/testdb-new', async (req, res) => {
-    try{     
-        const results = await conn.query('SELECT * FROM users')
-        res.json(results[0])    
-    } catch(error){     
-        console.log('Error fetching users:', error.message)
-        res.status(500).json({error: 'Error fetching users'})
-    }
-})
-
-// Path = GET / Users
+// Path = GET /users สำหรับ get user ทั้งหมด
 app.get('/users', async (req,res) => {
-// res.json(users); [ -- NO LONGER USED -- ]
-    const result = await conn.query('SELECT * FROM users')
-    res.json(result[0])
+    const results = await conn.query('SELECT * FROM users')
+    res.json(results[0])
 })
 
 // path = POST / User
 app.post('/users', async (req,res) => {
     try{
-    let user = req.body;
-    const errors = validateData(user)
-    if(errors.length > 0){
-        throw{
+        let user = req.body;
+        const errors = validateData(user)
+        if(errors.length > 0 ) {
+        throw {
             message: 'กรุณากรอกข้อมูลให้ครบถ้วน',
             errors: errors}
-    }
-
-    const result = await conn.query('INSERT INTO users SET ?', user)
-    res.json({
-        message: 'User created successfully',
-        data: {
-            message: 'User created',
-            data: result[0]
         }
-    });
+
+        const results = await conn.query('INSERT INTO users SET ?', user)
+        res.json({
+            message: 'User created',
+            data: results[0]
+        })
     } catch (error){
         const errorMessage = error.message || 'Something went wrong'
         const errors = error.errors || []
-        console.error('errorMessage', error.Message)
+        console.error('errorMessage', error.message)
         res.status(500).json({
             message: errorMessage,
-            error: errors
+            errors: errors
         })
     }
 })

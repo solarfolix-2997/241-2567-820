@@ -1,6 +1,6 @@
 const BASE_URL = 'http://localhost:8000';
 let mode = 'CREATE'
-let selectedid = ''
+let selectedId = ''
 
 window.onload = async () => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -9,35 +9,39 @@ window.onload = async () => {
 
     if (id) {
         mode = 'EDIT'
-        selectedid = id
+        selectedId = id
      //1. ดึงข้อมูล user ที่ต้องการแก้ไขออกมา
      try{
         const response = await axios.get(`${BASE_URL}/users/${id}`);
+        const user = response.data
         console.log('response',response.data)
+    
+        let firstnameDOM = document.querySelector('input[name=firstname]')
+        let lastnameDOM = document.querySelector('input[name=lastname]')
+        let ageDOM = document.querySelector('input[name=age]')
+        let descriptionDOM = document.querySelector('textarea[name=description]')
 
-    let firstnameDOM = document.querySelector('input[name=firstname]')
-    let lastnameDOM = document.querySelector('input[name=lastname]')
-    let ageDOM = document.querySelector('input[name=age]')
-    let descriptionDOM = document.querySelector('textarea[name=description]')
+        let genderDOMs = document.querySelectorAll('input[name=gender]')
+        let interestDOMs = document.querySelectorAll('input[name=interest]')
 
-    let genderDOMs = document.querySelectorAll('input[name=gender]') || {}
-    let interestDOMs = document.querySelectorAll('input[name=interest]') || {}
-    console.log('interst',user.interests)
+        console.log('interest',user.interests)
+
         for (let i = 0; i < genderDOMs.length; i++) {
-            if (genderDOMs[i].value == userInfo.gender){
+            if (genderDOMs[i].value == user.gender){
                 genderDOMs[i].checked = true
             }
         }
 
         for (let i = 0; i < interestDOMs.length; i++) {
-            if (user.interest.includes(interestDOMs[i].value)) {
+            if (user.interests.includes(interestDOMs[i].value)) {
                 interestDOMs[i].checked = true
             }
         }
-    firstnameDOM.value = response.data.firstname
-    lastnameDOM.value = response.data.lastname
-    ageDOM.value = response.data.age
-    descriptionDOM.value = response.data.description
+
+        firstnameDOM.value = response.data.firstname
+        lastnameDOM.value = response.data.lastname
+        ageDOM.value = response.data.age
+        descriptionDOM.value = response.data.description
 
      }catch (error) {
         console.log('error', error)
@@ -67,7 +71,7 @@ const validateData = (userData) => {
     return errors
 }
 
-const submitData = async () =>{
+const submitData = async () => {
     let firstnameDOM = document.querySelector('input[name=firstname]')
     let lastnameDOM = document.querySelector('input[name=lastname]')
     let ageDOM = document.querySelector('input[name=age]')
@@ -78,7 +82,7 @@ const submitData = async () =>{
     let messageDOM = document.getElementById('message')
 
     try{    
-        let interest = ''
+        let interest = '';
 
         for (let i = 0; i < interestDOMs.length; i++) {
             interest += interestDOMs[i].value
@@ -95,6 +99,7 @@ const submitData = async () =>{
             description: descriptionDOM.value,
             interests : interest
         }
+
         console.log('submitData',userData)
 
         // const errors = validateData(userData)
@@ -105,28 +110,28 @@ const submitData = async () =>{
         //    }
         // }
 
-        let message = 'บันทึกข้อมูลเรียบร้อย'
+        let message ='บันทึกข้อมูลเรียบร้อย'
 
         if (mode == 'CREATE') {
-            const response = await axios.post(`${BASE_URL}/users`,userData);
+            const response = await axios.post(`${BASE_URL}/users`, userData);
             console.log('response',response.data)
         } else {
-            const response = await axios.put(`${BASE_URL}/users/${selectedid}`,userData);
+            const response = await axios.put(`${BASE_URL}/users/${selectedId}`, userData);
             message = 'แก้ไขข้อมูลเรียบร้อย'
             console.log('response',response.data)
         }
 
-        messageDOM.innerText ='บันทึกข้อมูลเรียบร้อย'
+        messageDOM.innerText = message
         messageDOM.className = 'message success'
 
     } catch (error) {
         console.log('error message',error.message)
         console.log('error', error.errors)
-        if (error.response){
+         if (error.response){
             console.log(error.response)
             error.message = error.response.data.message
             error.errors = error.response.data.errors        
-        }           
+         }           
 
         let htmlData = '<div>'
         htmlData += `<div>${error.message}</div>`
