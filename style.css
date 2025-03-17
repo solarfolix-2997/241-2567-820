@@ -40,7 +40,17 @@ input.form, textarea {
     width: 50%;
     background-color: aqua;
     height: 40px;
+    border-radius: 5px;
 }
+
+.submitbutton {
+    border: 0;
+    width: 50%;
+    background-color: aqua;
+    height: 40px;
+    border-radius: 5px;
+}
+
 .message {
     margin-top: 20px;
     padding: 10px;

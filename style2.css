@@ -1,0 +1,73 @@
+@font-face {
+    font-family: 'kanit';
+    src: url('./Kanit/Kanit-Regular.ttf');
+}
+
+body {
+    font-family: 'kanit';
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+header {
+    background: #35424a;
+    color: #ffffff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.back-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.user-list {
+    margin: 20px 0;
+}
+
+.user-item {
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-item button {
+    background: #e74c3c;
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.user-item button:hover {
+    background: #c0392b;
+}
+
+.edit-button {
+    background: #34db6e;
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.edit-button:hover {
+    background: #a2ffc3;
+}

@@ -11,13 +11,15 @@ const loadData = async () => {
 
     //2. นำ user ที่โหลดมาใส่เข้าใน html
     const userDOM = document.getElementById('user');
-    let htmlData = '<div>';
-    for (let i = 0; i < response.data.length; i++) {
-        let user = response.data[i];
-        htmlData += `<div>${user.id} ${user.firstname} ${user.lastname}
-        <a href='index.html?id=${user.id}'><button>Edit</button>
-        <button class = 'delete' data-id='${user.id}')">Delete</button>
-        </div>`
+    let htmlData = '';
+
+    for (let user of response.data) {
+        htmlData += `
+            <div class="user-item">
+            <div>${user.id} - ${user.firstname} ${user.lastname}</div>
+            <div><a href='index.html?id=${user.id}' class="edit-button">Edit</a>
+            <button class='delete' data-id='${user.id}'>Delete</button>
+            </div></div>`;
     }
 
     htmlData += '</div>'
@@ -26,8 +28,8 @@ const loadData = async () => {
     //3 ลบ user
 
     const deleteDOMs = document.getElementsByClassName('delete');
-    for (let i = 0; i < deleteDOMs.length; i++) {
-        deleteDOMs[i].addEventListener('click', async (event) => {
+    for (let deleteButton of deleteDOMs) {
+        deleteButton.addEventListener('click', async (event) => {
             const id = event.target.dataset.id;
             try{
                 await axios.delete(`${BASE_URL}/users/${id}`);
