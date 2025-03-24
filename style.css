@@ -4,14 +4,24 @@
 }      
 body {
     font-family: 'kanit';
+    background-image: url("https://a-static.besthdwallpaper.com/snowy-mountains-and-sunrise-lake-reflection-wallpaper-3840x2400-109444_9.jpg");
+    height: 850px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    margin: 0;
+    padding: 0;
 }
+
 .container {
-    width: 100%;
-    max-width: 640px;
+    width: 100%;    
+    padding: 20px;
+    max-width: 640px;    
+    border-radius: 15px;    
+    background-color: #eef2ffbc;
     margin-left: auto;
     margin-right: auto;
-    background-color: azure;
-    padding: 20px;
     box-sizing: border-box;
 }
 .header{
@@ -29,26 +39,33 @@ body {
     margin-bottom: 10px;
 }
 input.form, textarea {
-    border: 1px solid black;
+    border: 1px solid rgba(165, 165, 165, 0.447);
     width: 100%;
+    height: 30px;
+    margin: 5px 0;
+    border-radius: 10px;
 }
 .center{
     text-align: center;
 }
-.button {
+.editbutton {
     border: 0;
     width: 50%;
-    background-color: aqua;
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #8c8e9200;
     height: 40px;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .submitbutton {
     border: 0;
     width: 50%;
-    background-color: aqua;
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #8c8e92bd;
     height: 40px;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .message {
@@ -56,6 +73,8 @@ input.form, textarea {
     padding: 10px;
     background-color: lightgray;
     display: none;
+    margin: 5px 0;
+    border-radius: 10px;
 }
 
 .message.success {
@@ -66,6 +85,7 @@ input.form, textarea {
 .message.danger {
     background-color: lightcoral;
     display: block;
+
 }
 
 @media screen and (max-width: 768px) {
